@@ -3,4 +3,5 @@
     <string name = "NMedia">NMedia</string>
     <string name="app_name">NMedia</string>
     <string name="nmedia">NMedia!</string>
+    <string name="avatar">avatar</string>
 </resources>
