@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
 
             in 10000..999_999 -> return (post / 1000).toString() + "К"
             else -> if (post % 1000_000 <= 99_999) {
-                return (post / 1000_000).toString() + "К"
+                return (post / 1000_000).toString() + "М"
             } else {
                 return ((post / 100_000).toDouble() / 10).toString() + "М"
             }
