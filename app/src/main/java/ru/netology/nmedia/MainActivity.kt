@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
+import android.view.View.VIEW_LOG_TAG
 import android.widget.ImageView
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.dto.Post
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
 
@@ -35,9 +37,11 @@ class MainActivity : AppCompatActivity() {
         // в этот класс ActivityMainBinding. layoutInflater - берет свойства из текущего класса
         //MainActivity и создает объекты в ActivityMainBinding
         _binding = ActivityMainBinding.inflate(layoutInflater)
+
         //root - корень, который содержит все элементы верстки. Мы уже получаем объекты не из
         //activity_main (как по дефолту), а из binding
         setContentView(binding.root)
+
 
         val post = Post(
             1,
@@ -72,10 +76,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
             like.setOnClickListener {
                 //если пост был тру станет фолс и наоборот
                 post.likedByMe = !post.likedByMe
+
                 // если post.likedByMe - true - выполняем условие
                 if (post.likedByMe) {
                     post.likes++
@@ -86,8 +90,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 //тут мы меняем значение поля  countLikes.text - при нажатии меняем на новое значение
                 countLikes.text = correctNumber(post.likes)
+                Log.d("MainActivityPlain","сработал лайк")
 
-                //post.shareByMe = !post.shareByMe
 
 
 //тоже решение без данных поста
@@ -103,11 +107,22 @@ class MainActivity : AppCompatActivity() {
             }
         }*/
             }
+
             share.setOnClickListener {
                 post.share++
                 countShare.text = correctNumber(post.share)
+                Log.d("MainActivityPlain","сработал шаре")
             }
 
+
+            root.setOnClickListener {
+                println("Сработало")
+                Log.d("MainActivityPlain","сработал рут")
+            }
+
+            avatar.setOnClickListener {
+                Log.d("MainActivityPlain","сработалf аватарка")
+            }
 
         }
     }
@@ -115,15 +130,15 @@ class MainActivity : AppCompatActivity() {
     fun correctNumber(post: Int): String {
         when (post) {
             in 0..999 -> return post.toString()
-            in 1000..9999 -> if (post%1000<99) {
+            in 1000..9999 -> if (post%1000<=99) {
                 return (post / 1000).toString() + "K"
             } else {
                 return ((post / 100).toDouble() / 10).toString() + "K"
             }
 
-            in 10000..999_999 -> return (post / 1000).toString()
-            else -> if (post % 1000_000 < 99_999) {
-                return (post / 1000_000).toString() + "М"
+            in 10000..999_999 -> return (post / 1000).toString() + "К"
+            else -> if (post % 1000_000 <= 99_999) {
+                return (post / 1000_000).toString() + "К"
             } else {
                 return ((post / 100_000).toDouble() / 10).toString() + "М"
             }
